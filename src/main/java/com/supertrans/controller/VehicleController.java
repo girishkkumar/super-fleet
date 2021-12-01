@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.supertrans.dto.Response;
 import com.supertrans.dto.VehicleDTO;
 import com.supertrans.entity.User;
+import com.supertrans.entity.Vehicle;
 import com.supertrans.exception.InvalidTokenException;
 import com.supertrans.exception.InvalidUserException;
 import com.supertrans.exception.InvalidVehicleException;
@@ -150,7 +151,7 @@ public class VehicleController {
 		Response response = Response.builder().build();
 		try {
 			User user = userService.findByToken(AuthToken);
-			Page<VehicleDTO> vehiclesList = vehicleService.findAll(user, PageRequest.of(pageNumber, pageSize,
+			Page<Vehicle> vehiclesList = vehicleService.findAll(user, PageRequest.of(pageNumber, pageSize,
 					sortDir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending()));
 			response.setData(vehiclesList);
 			response.setMessage("Success");
@@ -191,8 +192,9 @@ public class VehicleController {
 	}
 
 	@GetMapping(value = "/vehicles/aggregate")
-	public Response fetchAllVehiclesOfCustomersByYear(
-			@RequestHeader(name = SuperFleetConstants.AUTH) String AuthToken) {
+	public Response fetchAllVehiclesOfCustomersByYear(@RequestHeader(name = SuperFleetConstants.AUTH) String AuthToken,
+			@RequestParam Integer pageNumber, @RequestParam Integer pageSize, @RequestParam String sortBy,
+			@RequestParam String sortDir) {
 		Response response = Response.builder().build();
 		try {
 			User user = userService.findByToken(AuthToken);
@@ -201,7 +203,8 @@ public class VehicleController {
 				response.setMessage("Access Denied");
 				response.setStatusCode("AD-001");
 			} else if (role.equalsIgnoreCase(SuperFleetConstants.ADMIN)) {
-				List<VehicleDTO> vehiclesList = vehicleService.fetchAllVehiclesOfCustomersByYear();
+				List<VehicleDTO> vehiclesList = vehicleService.fetchAllVehiclesOfCustomersByYear(PageRequest.of(pageNumber, pageSize,
+						sortDir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending()));
 				response.setData(vehiclesList);
 				response.setMessage("Success");
 				response.setStatusCode("S-001");

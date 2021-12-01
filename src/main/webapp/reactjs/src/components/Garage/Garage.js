@@ -36,6 +36,7 @@ class Garage extends Component {
   }
 
   findGarageById = (garageId) => {
+    console.log("garageid: "+ garageId);
     this.props.fetchGarage(garageId);
     setTimeout(() => {
       let garage = this.props.garageObject.garage;
@@ -98,7 +99,7 @@ class Garage extends Component {
         email:this.state.email,
         address:this.state.address,
         contactNo: this.state.contactNo, 
-        nearestGarage:this.state.nearestGarage ,
+        nearestGarage:this.state.nearestGarage
     };
 
 

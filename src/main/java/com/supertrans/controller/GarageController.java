@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.supertrans.dto.GarageDTO;
 import com.supertrans.dto.Response;
+import com.supertrans.entity.Garage;
 import com.supertrans.exception.InvalidGarageException;
 import com.supertrans.exception.InvalidTokenException;
 import com.supertrans.exception.InvalidUserException;
@@ -29,7 +30,6 @@ import com.supertrans.service.IPageService;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-//@RequestMapping("/garage")
 @CrossOrigin(origins = "http://localhost:3000")
 @Log4j2
 public class GarageController {
@@ -38,7 +38,7 @@ public class GarageController {
 	private IGarageService<GarageDTO> garageService;
 
 	@Autowired
-	private IPageService<GarageDTO> garagePageService;
+	private IPageService<Garage> garagePageService;
 
 	@PostMapping(value = "/garage", consumes = "application/json")
 	public Response createGarage(@RequestBody GarageDTO garageDTO) {
@@ -129,7 +129,7 @@ public class GarageController {
 			@RequestParam String sortBy, @RequestParam String sortDir) {
 		Response response = Response.builder().build();
 		try {
-			Page<GarageDTO> garagesList = garagePageService.findAll(PageRequest.of(pageNumber, pageSize,
+			Page<Garage> garagesList = garagePageService.findAll(PageRequest.of(pageNumber, pageSize,
 					sortDir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending()));
 			response.setData(garagesList);
 			response.setMessage("Success");

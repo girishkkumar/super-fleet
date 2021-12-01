@@ -22,6 +22,6 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 	List<Object[]> findAvgOdometerReadingGroupByYear(User userId);
 
 	@Query(value = "select count(id) as busesCount, year as manufactureYear from Vehicle group by manufactureYear")
-	List<Object[]> findAllVehiclesOfCustomersByYear();
+	List<Object[]> findAllVehiclesOfCustomersByYear(Pageable pageable);
 
 }

@@ -34,7 +34,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
-public class VehicleServiceImpl implements IVehicleService<VehicleDTO>, IPageService<VehicleDTO> {
+public class VehicleServiceImpl implements IVehicleService<VehicleDTO>, IPageService<Vehicle> {
 
 	@Autowired
 	private VehicleRepository vehicleRepository;
@@ -144,16 +144,16 @@ public class VehicleServiceImpl implements IVehicleService<VehicleDTO>, IPageSer
 	}
 
 	@Override
-	public Page<VehicleDTO> findAll(Pageable pageable) {
+	public Page<Vehicle> findAll(Pageable pageable) {
 		Page<Vehicle> vehiclesList = vehicleRepository.findAll(pageable);
-		List<Vehicle> vehicles = vehiclesList.toList();
-		List<VehicleDTO> vehicleDTOList = SuperFleetUtil.VehicleEntitiesToDTO.apply(vehicles);
-
-		final int start = (int) pageable.getOffset();
-		final int end = Math.min((start + pageable.getPageSize()), vehicleDTOList.size());
-		final Page<VehicleDTO> page = new PageImpl<>(vehicleDTOList.subList(start, end), pageable,
-				vehicleDTOList.size());
-		return page;
+//		List<Vehicle> vehicles = vehiclesList.toList();
+//		List<VehicleDTO> vehicleDTOList = SuperFleetUtil.VehicleEntitiesToDTO.apply(vehicles);
+//
+//		final int start = (int) pageable.getOffset();
+//		final int end = Math.min((start + pageable.getPageSize()), vehicleDTOList.size());
+//		final Page<VehicleDTO> page = new PageImpl<>(vehicleDTOList.subList(start, end), pageable,
+//				vehicleDTOList.size());
+		return vehiclesList;
 	}
 
 	@Override
@@ -205,16 +205,16 @@ public class VehicleServiceImpl implements IVehicleService<VehicleDTO>, IPageSer
 	}
 
 	@Override
-	public Page<VehicleDTO> findAll(User user, Pageable pageable) {
+	public Page<Vehicle> findAll(User user, Pageable pageable) {
 		Page<Vehicle> vehiclesList = vehicleRepository.findByCreatedBy(user, pageable);
-		List<Vehicle> vehicles = vehiclesList.toList();
-		List<VehicleDTO> vehicleDTOList = SuperFleetUtil.VehicleEntitiesToDTO.apply(vehicles);
-
-		final int start = (int) pageable.getOffset();
-		final int end = Math.min((start + pageable.getPageSize()), vehicleDTOList.size());
-		final Page<VehicleDTO> page = new PageImpl<>(vehicleDTOList.subList(start, end), pageable,
-				vehicleDTOList.size());
-		return page;
+//		List<Vehicle> vehicles = vehiclesList.toList();
+//		List<VehicleDTO> vehicleDTOList = SuperFleetUtil.VehicleEntitiesToDTO.apply(vehicles);
+//
+//		final int start = (int) pageable.getOffset();
+//		final int end = Math.min((start + pageable.getPageSize()), vehicleDTOList.size());
+//		final Page<VehicleDTO> page = new PageImpl<>(vehicleDTOList.subList(start, end), pageable,
+//				vehicleDTOList.size());
+		return vehiclesList;
 	}
 
 	public List<VehicleDTO> fetchAvgOdometerReadingByYear(User user) {
@@ -241,10 +241,11 @@ public class VehicleServiceImpl implements IVehicleService<VehicleDTO>, IPageSer
 	}
 
 	@Override
-	public List<VehicleDTO> fetchAllVehiclesOfCustomersByYear() {
+	public List<VehicleDTO> fetchAllVehiclesOfCustomersByYear(Pageable pageable) {
 		try {
 			List<VehicleDTO> vehiclesDTOList = new ArrayList<VehicleDTO>();
-			List<Object[]> aggVehiclesofCustomerByYearList = vehicleRepository.findAllVehiclesOfCustomersByYear();
+			List<Object[]> aggVehiclesofCustomerByYearList = vehicleRepository
+					.findAllVehiclesOfCustomersByYear(pageable);
 			if (aggVehiclesofCustomerByYearList != null) {
 				for (Object[] objArr : aggVehiclesofCustomerByYearList) {
 					VehicleDTO vehicleDTO = new VehicleDTO();
