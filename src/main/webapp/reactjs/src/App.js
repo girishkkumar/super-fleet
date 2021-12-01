@@ -14,6 +14,10 @@ import Login from "./components/User/Login";
 import Home from "./components/Home";
 import Garage from './components/Garage/Garage';
 import GarageList from './components/Garage/GarageList';
+import TotalBuses from './components/Report/TotalBuses';
+import BusStatuses from './components/Report/BusStatuses';
+import OdoReading from './components/Report/OdometerReading';
+
 
 const App = () => {
   
@@ -25,7 +29,6 @@ const App = () => {
     }
     return "";
   };
-
 
   return (
     <Router>
@@ -44,6 +47,9 @@ const App = () => {
                 <Route path="/garages" exact component={GarageList}/>
                 <Route path="/register" exact component={Register} />
                 <Route path="/login" exact component={Login} />
+                <Route path="/totalBuses" exact component={TotalBuses} />
+                <Route path="/statuses" exact component={BusStatuses} />
+                <Route path="/OdoReading" exact component={OdoReading} />
                 <Route
                 path="/logout"
                 exact

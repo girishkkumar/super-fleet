@@ -195,12 +195,13 @@ class VehicleList extends Component {
 	                <th>Capacity</th>
 	                <th>Status</th>
 	                <th>Next Maintenance Date</th>
+                  <th>Resale Value</th>
                 </tr>
               </thead>
               <tbody>
                 {vehicles.length === 0 ? (
                   <tr align="center">
-                    <td colSpan="7">No Vehicles Available.</td>
+                    <td colSpan="7">No Buses Available.</td>
                   </tr>
                 ) : (
                   vehicles.map((vehicle) => (
@@ -225,7 +226,7 @@ class VehicleList extends Component {
                       <td>
                         <ButtonGroup>
                           <Link
-                            to={"edit/" + vehicle.id}
+                            to={"vehicle/" + vehicle.id}
                             className="btn btn-sm btn-outline-primary"
                           >
                             <FontAwesomeIcon icon={faEdit} />

@@ -29,7 +29,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
-public class GarageServiceImpl implements IGarageService<GarageDTO>, IPageService<GarageDTO> {
+public class GarageServiceImpl implements IGarageService<GarageDTO>, IPageService<Garage> {
 
 	@Autowired
 	private GarageRepository garageRepository;
@@ -38,15 +38,9 @@ public class GarageServiceImpl implements IGarageService<GarageDTO>, IPageServic
 	private UserRepository userRepository;
 
 	@Override
-	public Page<GarageDTO> findAll(Pageable pageable) {
+	public Page<Garage> findAll(Pageable pageable) {
 		Page<Garage> garagesList = garageRepository.findAll(pageable);
-		List<Garage> garages = garagesList.toList();
-		List<GarageDTO> garageDTOList = SuperFleetUtil.GarageEntitiesToDTO.apply(garages);
-
-		final int start = (int) pageable.getOffset();
-		final int end = Math.min((start + pageable.getPageSize()), garageDTOList.size());
-		final Page<GarageDTO> page = new PageImpl<>(garageDTOList.subList(start, end), pageable, garageDTOList.size());
-		return page;
+		return garagesList;
 	}
 
 	@Override
