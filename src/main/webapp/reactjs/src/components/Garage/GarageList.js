@@ -294,7 +294,6 @@ class GarageList extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.garage);
   return {
     garageObject: state.garage,
   };

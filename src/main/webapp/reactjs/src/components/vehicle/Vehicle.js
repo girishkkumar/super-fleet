@@ -38,7 +38,7 @@ class Vehicle extends Component {
   findVehicleById = (vehicleId) => {
     this.props.fetchVehicle(vehicleId);
     setTimeout(() => {
-      let vehicle = this.props.vehicleObject.vehicle;
+      let vehicle = this.props.vehicleObject.vehicle.data;
       if (vehicle != null) {
         this.setState({
           id: vehicle.id,
@@ -136,7 +136,7 @@ class Vehicle extends Component {
   }
 
   vehicleList = () => {
-    return this.props.history.push("/list");
+    return this.props.history.push("/vehicles");
   };
 
   render() {
@@ -296,6 +296,12 @@ class Vehicle extends Component {
               <Button size="sm" variant="info" type="reset">
                 <FontAwesomeIcon icon={faUndo} /> Reset
               </Button>{" "}
+              <Button
+                size="sm"
+                variant="info"
+                type="button"
+                onClick={() => this.vehicleList()}
+              >Bus List</Button>
             </Card.Footer>
           </Form>
         </Card>

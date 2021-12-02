@@ -15,4 +15,6 @@ public interface GarageRepository extends JpaRepository<Garage, Long> {
 			+ "radians(:longitude) ) + sin( radians(:latitude) ) * sin( radians( latitude ) ) ) ) AS distance FROM garage HAVING distance < 100 ORDER BY distance LIMIT 1")
 	List<Object[]> findNearestGarageByLatAndLong(Double latitude, Double longitude);
 
+	Garage findByName(String name);
+
 }
