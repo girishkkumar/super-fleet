@@ -38,7 +38,7 @@ public class Garage {
 	@Column(name = "id", updatable = false, nullable = false, unique = true)
 	protected Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "nearest_gargage_id")
 	private Garage nearestGarage;
 

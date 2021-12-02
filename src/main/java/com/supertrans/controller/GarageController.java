@@ -74,7 +74,7 @@ public class GarageController {
 		return response;
 	}
 
-	@GetMapping(value = "/garage/{garageId}", consumes = "application/json")
+	@GetMapping(value = "/garage/{garageId}")
 	public Response fetchGarage(@PathVariable String garageId) {
 		long starttime = System.currentTimeMillis();
 		log.info("Get Garage by id: " + garageId + ", start time: " + starttime);

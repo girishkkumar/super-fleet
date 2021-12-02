@@ -143,8 +143,9 @@ public class SuperFleetUtil {
 				dto.setCreatedBy(userDTO);
 			}
 			if (garage.getNearestGarage() != null) {
+				Garage nearestGarage = garage.getNearestGarage();
 				GarageDTO nearestGarageDTO = new GarageDTO();
-				BeanUtils.copyProperties(garage, nearestGarageDTO);
+				BeanUtils.copyProperties(nearestGarage, nearestGarageDTO);
 				if (garage.getNearestGarage().getCreatedDate() != null) {
 					nearestGarageDTO.setCreatedDate(garage.getNearestGarage().getCreatedDate()
 							.format(SuperFleetConstants.LOCALDATETIME_FORMATTER).toString());

@@ -10,7 +10,6 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -77,6 +76,11 @@ public class GarageServiceImpl implements IGarageService<GarageDTO>, IPageServic
 				garage.setLatitude(garageDTO.getLatitude());
 				garage.setLongitude(garageDTO.getLongitude());
 				garage.setName(garageDTO.getName());
+
+				Garage nearestGarage = garageRepository.findByName(garageDTO.getNearestGarage().getName());
+				if (nearestGarage != null) {
+					garage.setNearestGarage(nearestGarage);
+				}
 
 			}
 		} else {

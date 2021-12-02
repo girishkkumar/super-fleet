@@ -39,7 +39,7 @@ class Garage extends Component {
     console.log("garageid: "+ garageId);
     this.props.fetchGarage(garageId);
     setTimeout(() => {
-      let garage = this.props.garageObject.garage;
+      let garage = this.props.garageObject.garage.data;
       if (garage != null) {
         this.setState({
             id:garage.id, 
@@ -49,7 +49,7 @@ class Garage extends Component {
             email:garage.email,
             address:garage.address,
             contactNo: garage.contactNo, 
-            nearestGarage:garage.nearestGarage          
+            nearestGarage:garage.nearestGarage.name          
         });
       }
     }, 1000);
@@ -90,6 +90,9 @@ class Garage extends Component {
   };
 
   updateGarage = (event) => {
+    const nearGarage ={
+      name: this.state.nearestGarage
+    }
     event.preventDefault();
     const garage = {
         id: this.state.id,
@@ -99,7 +102,7 @@ class Garage extends Component {
         email:this.state.email,
         address:this.state.address,
         contactNo: this.state.contactNo, 
-        nearestGarage:this.state.nearestGarage
+        nearestGarage:nearGarage,
     };
 
 
@@ -135,7 +138,7 @@ class Garage extends Component {
   }
 
   garageList = () => {
-    return this.props.history.push("/list");
+    return this.props.history.push("/garages");
   };
 
   render() {
@@ -266,7 +269,7 @@ class Garage extends Component {
                     type="text"
                     name="nearestGarage"
                     value={nearestGarage}
-                    onChange={this.vehicleChange}
+                    onChange={this.garageChange}
                     className={"bg-dark text-white"}
                     placeholder="Nearest Garage"
                   />
@@ -281,6 +284,12 @@ class Garage extends Component {
               <Button size="sm" variant="info" type="reset">
                 <FontAwesomeIcon icon={faUndo} /> Reset
               </Button>{" "}
+              <Button
+                size="sm"
+                variant="info"
+                type="button"
+                onClick={() => this.garageList()}
+              >Garage List</Button>
             </Card.Footer>
           </Form>
         </Card>
