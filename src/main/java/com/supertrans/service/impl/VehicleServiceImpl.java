@@ -78,7 +78,7 @@ public class VehicleServiceImpl implements IVehicleService<VehicleDTO>, IPageSer
 
 			return sellingPrice;
 		}
-		return null;
+		return sellingPrice;
 	}
 
 	private Double calculateSellingPrice(Double sellingPrice, int percentageIncrease) {
